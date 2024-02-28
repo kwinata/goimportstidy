@@ -7,8 +7,8 @@ This tool updates your Go import lines, grouping it into three groups:
  
 Installation: 
 
-     $ go get github.com/kwinata/goimportstidy
+     $ go install github.com/kwinata/goimportstidy@latest
      
 Usage:
 
-    $ goimportstidy -w -local github.com/shipwallet main.go -current github.com/shipwallet/core
+    $ goimportstidy -w -local github.com/shipwallet main.go -current github.com/shipwallet/core .
