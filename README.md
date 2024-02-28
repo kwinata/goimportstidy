@@ -7,7 +7,7 @@ This tool updates your Go import lines, grouping it into three groups:
  
 Installation: 
 
-     $ go get github.com/krzysztofdrys/goimportstidy
+     $ go get github.com/kwinata/goimportstidy
      
 Usage:
 
