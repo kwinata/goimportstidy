@@ -48,10 +48,19 @@ func main() {
 		if !strings.HasSuffix(file, ".go") {
 			continue
 		}
+		matchPattern := false
 		for _, pattern := range patterns {
-			if isMatch, _ := filepath.Match(pattern, file); isMatch {
-				continue
+			isMatch, err := filepath.Match(pattern, file)
+			if isMatch {
+				matchPattern = true
+				break
 			}
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "err on ignore pattern: %v", err)
+			}
+		}
+		if matchPattern {
+			continue
 		}
 
 		s, err := os.Stat(file)
