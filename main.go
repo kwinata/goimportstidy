@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/kwinata/goimportstidy/format"
 )
@@ -29,24 +31,50 @@ func main() {
 	if flag.NArg() != 1 {
 		usage()
 	}
-	file := flag.Arg(0)
 
-	s, err := os.Stat(file)
+	fileList := make([]string, 0)
+	err := filepath.Walk(flag.Arg(0), func(path string, f os.FileInfo, err error) error {
+		fileList = append(fileList, path)
+		return err
+	})
 	if err != nil {
-		errAndExit("failed to stat file: %v", err)
-	}
-	f, err := ioutil.ReadFile(file)
-	if err != nil {
-		errAndExit("failed to read file: %v", err)
+		errAndExit("fail to walk path: %v", err)
 	}
 
-	output := format.File(string(f), *local, *current)
+	for _, file := range fileList {
+		if !strings.HasSuffix(file, ".go") {
+			continue
+		}
+		if strings.Contains(file, "mocks/") {
+			continue
+		}
+		if strings.Contains(file, "mock.go") {
+			continue
+		}
+		if strings.Contains(file, "mocks.go") {
+			continue
+		}
+		if strings.Contains(file, "/gen/") {
+			continue
+		}
+		
+		s, err := os.Stat(file)
+		if err != nil {
+			errAndExit("failed to stat file: %v", err)
+		}
+		f, err := ioutil.ReadFile(file)
+		if err != nil {
+			errAndExit("failed to read file: %v", err)
+		}
 
-	if !*write {
-		fmt.Print(string(output))
-	}
+		output := format.File(string(f), *local, *current)
 
-	if err := ioutil.WriteFile(file, []byte(output), s.Mode()); err != nil {
-		errAndExit("failed to format file: %v", err)
+		if !*write {
+			fmt.Print(string(output))
+		}
+
+		if err := ioutil.WriteFile(file, []byte(output), s.Mode()); err != nil {
+			errAndExit("failed to format file: %v", err)
+		}
 	}
 }
