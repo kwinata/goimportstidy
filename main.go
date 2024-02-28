@@ -13,6 +13,7 @@ import (
 
 var local = flag.String("local", "", "local package name, used for grouping")
 var current = flag.String("current", "", "current repo name, used for grouping")
+var ignore = flag.String("ignore", "", "ignore glob patterns")
 var write = flag.Bool("w", false, "write changes")
 
 func usage() {
@@ -41,23 +42,18 @@ func main() {
 		errAndExit("fail to walk path: %v", err)
 	}
 
+	patterns := strings.Split(*ignore, ",")
+
 	for _, file := range fileList {
 		if !strings.HasSuffix(file, ".go") {
 			continue
 		}
-		if strings.Contains(file, "mocks/") {
-			continue
+		for _, pattern := range patterns {
+			if isMatch, _ := filepath.Match(pattern, file); isMatch {
+				continue
+			}
 		}
-		if strings.Contains(file, "mock.go") {
-			continue
-		}
-		if strings.Contains(file, "mocks.go") {
-			continue
-		}
-		if strings.Contains(file, "/gen/") {
-			continue
-		}
-		
+
 		s, err := os.Stat(file)
 		if err != nil {
 			errAndExit("failed to stat file: %v", err)

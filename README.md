@@ -13,7 +13,9 @@ Usage:
 
     $ goimportstidy -w -local github.com/shipwallet main.go -current github.com/shipwallet/core .
 
-Difference from the original repo is we can also support `current` repo, to be 4 groups, example:
+## Difference from the original repo
+
+We can also support `current` repo, to be 4 groups, example:
 
 Input: 
 
@@ -56,3 +58,8 @@ import (
 )
 
 ```
+
+---
+
+It also supports directory as path input.
+Together also supports glob ignore `-ignore mocks/**,**/mock*.go,internal/spex/gen`.
