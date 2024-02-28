@@ -42,24 +42,28 @@ func main() {
 		errAndExit("fail to walk path: %v", err)
 	}
 
-	patterns := strings.Split(*ignore, ",")
+	globPatterns := strings.Split(*ignore, ",")
+	var removeList []string
+	for _, globPattern := range globPatterns {
+		matches, err := filepath.Glob(globPattern)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "err on ignore pattern '%s': %v\n", globPattern, err)
+		}
+		removeList = append(removeList, matches...)
+	}
 
 	for _, file := range fileList {
 		if !strings.HasSuffix(file, ".go") {
 			continue
 		}
-		matchPattern := false
-		for _, pattern := range patterns {
-			isMatch, err := filepath.Match(pattern, file)
-			if isMatch {
-				matchPattern = true
+		matchFile := false
+		for _, removed := range removeList {
+			if removed == file {
+				matchFile = true
 				break
 			}
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "err on ignore pattern: %v", err)
-			}
 		}
-		if matchPattern {
+		if matchFile {
 			continue
 		}
 
