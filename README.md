@@ -62,4 +62,6 @@ import (
 ---
 
 It also supports directory as path input.
-Together also supports glob ignore `-ignore mocks/**,**/mock*.go,internal/spex/gen`.
+Together also supports glob ignore `-ignore mocks/**,**/mock*.go,internal/proto/spex/gen/go/**/*.go`.
+
+Please note that somehow go filepath.Glob doesn't support multiple directory section in double arterisk (**).
