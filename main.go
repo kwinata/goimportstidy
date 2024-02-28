@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/krzysztofdrys/goimportstidy/format"
+	"github.com/kwinata/goimportstidy/format"
 )
 
 var local = flag.String("local", "", "local package name, used for grouping")

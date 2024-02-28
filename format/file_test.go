@@ -22,7 +22,7 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with no imports",
 			file:  "no_imports",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "Invalid imports (no local)",
@@ -42,7 +42,7 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with only std imports",
 			file:  "only_stdlib_1",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "File with only std imports 2",
@@ -62,7 +62,7 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with two groups of imports (stdlib and local)",
 			file:  "two_groups_1",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "File with two groups of imports (stdlib and libraries)",
@@ -72,7 +72,7 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with two groups of imports (stdlib and local)",
 			file:  "two_groups_2",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "File with two groups of imports (stdlib and libraries)",
@@ -82,7 +82,7 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with two groups of imports (stdlib and local)",
 			file:  "two_groups_3",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "File with one import group: lib",
@@ -92,28 +92,28 @@ func TestFormat(t *testing.T) {
 		{
 			name:  "File with one import group: local",
 			file:  "one_group",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "Properly sorted file with three groups",
 			file:  "three_groups_1",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "File with three group, which needs sorting",
 			file:  "three_groups_2",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:  "Sorting file with import aliases",
 			file:  "alias_sorting",
-			local: "github.com/krzysztofdrys",
+			local: "github.com/kwinata",
 		},
 		{
 			name:    "Sorting four groups",
 			file:    "four_groups_1",
-			local:   "github.com/krzysztofdrys",
-			current: "github.com/krzysztofdrys/a",
+			local:   "github.com/kwinata",
+			current: "github.com/kwinata/a",
 		},
 	}
 
