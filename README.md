@@ -11,4 +11,4 @@ Installation:
      
 Usage:
 
-    $ goimportstidy -w -local github.com/shipwallet main.go
+    $ goimportstidy -w -local github.com/shipwallet main.go -current github.com/shipwallet/core

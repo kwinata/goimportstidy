@@ -1,0 +1,20 @@
+package main
+
+import (
+	"fmt"
+
+	"gitlab.com/krzysztofdrys/a"
+	"gitlab.com/krzysztofdrys/b"
+	"gitlab.com/krzysztofdrys/b"
+
+	"github.com/krzysztofdrys/b"
+	"github.com/krzysztofdrys/c"
+
+	"github.com/krzysztofdrys/a"
+	"github.com/krzysztofdrys/a/core"
+	"github.com/krzysztofdrys/a/something/else"
+)
+
+func main() {
+	fmt.Println()
+}

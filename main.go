@@ -10,6 +10,7 @@ import (
 )
 
 var local = flag.String("local", "", "local package name, used for grouping")
+var current = flag.String("current", "", "current repo name, used for grouping")
 var write = flag.Bool("w", false, "write changes")
 
 func usage() {
@@ -39,7 +40,7 @@ func main() {
 		errAndExit("failed to read file: %v", err)
 	}
 
-	output := format.File(string(f), *local)
+	output := format.File(string(f), *local, *current)
 
 	if !*write {
 		fmt.Print(string(output))

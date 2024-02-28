@@ -14,12 +14,12 @@ const (
 	postImport
 )
 
-func File(file string, local string) string {
+func File(file string, local, current string) string {
 	contents, ok := extractImports(file)
 	if !ok || len(contents[importSection]) == 0 {
 		return file
 	}
-	contents[importSection] = formatImports(contents[importSection], local)
+	contents[importSection] = formatImports(contents[importSection], local, current)
 	contents[importSection] = append([]string{"import ("}, contents[importSection]...)
 	contents[importSection] = append(contents[importSection], ")")
 
@@ -58,12 +58,15 @@ func extractImports(s string) ([3][]string, bool) {
 	return result, phase == postImport
 }
 
-func formatImports(imports []string, local string) []string {
+func formatImports(imports []string, local, current string) []string {
 	group := func(s string) int {
 		path := importPath(s)
 
 		if !strings.Contains(path, ".") {
 			return 0
+		}
+		if current != "" && strings.HasPrefix(path, current) {
+			return 3
 		}
 		if local != "" && strings.HasPrefix(path, local) {
 			return 2
@@ -71,7 +74,7 @@ func formatImports(imports []string, local string) []string {
 		return 1
 	}
 
-	groups := [3][]string{}
+	groups := [4][]string{}
 
 	for _, imp := range imports {
 		if strings.TrimSpace(imp) == "" {

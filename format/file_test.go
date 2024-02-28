@@ -9,9 +9,10 @@ import (
 
 func TestFormat(t *testing.T) {
 	tests := []struct {
-		name  string
-		file  string
-		local string
+		name    string
+		file    string
+		local   string
+		current string
 	}{
 		{
 			name:  "File with no imports (no local)",
@@ -108,6 +109,12 @@ func TestFormat(t *testing.T) {
 			file:  "alias_sorting",
 			local: "github.com/krzysztofdrys",
 		},
+		{
+			name:    "Sorting four groups",
+			file:    "four_groups_1",
+			local:   "github.com/krzysztofdrys",
+			current: "github.com/krzysztofdrys/a",
+		},
 	}
 
 	for _, test := range tests {
@@ -120,7 +127,7 @@ func TestFormat(t *testing.T) {
 			if err != nil {
 				t.Fatalf("failed to read expected output: %v", err)
 			}
-			output := File(string(input), test.local)
+			output := File(string(input), test.local, test.current)
 			if string(expected) != output {
 				t.Fatalf("Expected:\n%s\nGot:\n%s", string(expected), output)
 			}
